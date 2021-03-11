@@ -3,7 +3,6 @@ def fib(n: int) -> int:
     if n < 2:
         return n
     return fib(n - 2) + fib(n - 1)
-#print(fib(6))
 
 #Случай с мемоизацией
 from typing import Dict
@@ -15,7 +14,6 @@ def fib_memo(n:int) -> int:
         memo[n] = fib_memo(n-1) + fib_memo(n-2)
     return memo[n]
 
-#print(fib_memo(6))
 
 #Случай с декоратором
 
@@ -26,7 +24,7 @@ def fib_cache(n:int) -> int:
     if n < 2:
         return n
     return fib_cache(n-2) + fib_cache(n-1)
-#print(fib_cache(6))
+
 
 
 #Случай с итерациями
@@ -39,7 +37,7 @@ def fib_iter(n:int) -> int:
     for _ in range(1, n):
         last, next = next, last + next
     return next
-#print(fib_iter(6))
+
 
 #Случай с генератором
 
