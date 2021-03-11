@@ -3,7 +3,8 @@ from typing import List, NamedTuple, Callable, Optional
 import random
 from math import sqrt
 from generic_search import dfs, node_to_path, Node
-#from generic_search import bfs
+# from generic_search import bfs
+
 
 class Cell(str, Enum):
     EMPTY = " "
@@ -12,22 +13,32 @@ class Cell(str, Enum):
     GOAL = "G"
     PATH = "*"
 
+
 class MazeLocation(NamedTuple):
-    row: int
-    column: int
+    row:
+        int
+    column:
+        int
+
 
 class Maze:
-    def __init__(self, rows: int = 10, columns: int = 10, sparseness: float =
-    0.2, start: MazeLocation = MazeLocation(0, 0), goal: MazeLocation =
-    MazeLocation(9, 9)) -> None:
+    def __init__(self, rows: int = 10, columns: int = 10,
+                 sparseness: float = 0.2, start:
+                     MazeLocation = MazeLocation(0, 0),
+                     goal: MazeLocation = MazeLocation(9, 9)) -> None:
         # инициализация базовых переменных экземпляра
-        self._rows: int = rows
-        self._columns: int = columns
-        self._start: MazeLocation = start
-        self._goal: MazeLocation = goal
+        self._rows:
+            int = rows
+        self._columns:
+            int = columns
+        self._start:
+            MazeLocation = start
+        self._goal:
+            MazeLocation = goal
         # заполнение сетки пустыми ячейками
-        self._grid: List[List[Cell]] = [[Cell.EMPTY for c in range(columns)]
-                                                    for r in range(rows)]
+        self._grid:
+            List[List[Cell]] = [[Cell.EMPTY for c in range(columns)]
+                                for r in range(rows)]
         # заполнение сетки заблокированными ячейками
         self._randomly_fill(rows, columns, sparseness)
         # заполнение начальной и конечной позиции в лабиринте
@@ -42,7 +53,8 @@ class Maze:
 
     # вывод отформатированной версии лабиринта на печать
     def __str__(self) -> str:
-        output: str = ""
+        output:
+            str = ""
         for row in self._grid:
             output += "".join([c.value for c in row]) + "\n"
         return output
@@ -51,7 +63,8 @@ class Maze:
         return m1 == self.goal
 
     def successors(self, m1: MazeLocation) -> List[MazeLocation]:
-        locations: List[MazeLocation] = []
+        locations:
+            List[MazeLocation] = []
         if m1.row + 1 < self._rows and self._grid[m1.row + 1][m1.column] != Cell.BLOCKED:
             locations.append(MazeLocation(m1.row + 1, m1.column))
         if m1.row - 1 >= 0 and self._grid[m1.row - 1][m1.column] != Cell.BLOCKED:
@@ -74,14 +87,17 @@ class Maze:
         self._grid[self.start.row][self.start.column] = Cell.START
         self._grid[self.goal.row][self.goal.column] = Cell.GOAL
 
-m: Maze = Maze()
+m:
+    Maze = Maze()
 print(m)
-solution1: Optional[Node[MazeLocation]] = dfs(m._start, m.goal_test, m.successors)
+solution1:
+    Optional[Node[MazeLocation]] = dfs(m._start, m.goal_test, m.successors)
 
 if solution1 is None:
     print("No solution found using depth-first search!")
 else:
-    path1: List[MazeLocation] = node_to_path(solution1)
+    path1:
+        List[MazeLocation] = node_to_path(solution1)
     m.mark(path1)
     print(m)
     m.clear(path1)

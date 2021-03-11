@@ -1,26 +1,33 @@
 from enum import IntEnum
 from typing import Tuple, List
 
-Nucleotide: IntEnum = IntEnum('Nucleotide', ('A', 'C', 'G', 'T'))
+Nucleotide:
+    IntEnum = IntEnum('Nucleotide', ('A', 'C', 'G', 'T'))
 
 Codon = Tuple[Nucleotide, Nucleotide, Nucleotide]
 # Псевдоним типа для кодонов
-Gene = List[Codon] # Псевдоним типа для гена
+Gene = List[Codon]  # Псевдоним типа для гена
 
-gene_str: str = "ACGTGGCTCTCTAACGTACGTACGTACGGGGTTTATATATACCCTAGGACTCCCTTT"
+gene_str:
+    str = "ACGTGGCTCTCTAACGTACGTACGTACGGGGTTTATATATACCCTAGGACTCCCTTT"
+
 
 def string_to_gene(s: str) -> Gene:
-    gene: Gene = []
+    gene:
+        Gene = []
     for i in range(0, len(s), 3):
-        if (i + 2) >= len(s): # не выходить за пределы строки
+        if (i + 2) >= len(s):  # не выходить за пределы строки
             return gene
         # инициализировать кодон из трёх нуклеотидов
-        codon: Codon = (Nucleotide[s[i]], Nucleotide[s[i + 1]],
-                        Nucleotide[s[i + 2]])
-        gene.append(codon) # добавить кодон в ген
+        codon:
+            Codon = (Nucleotide[s[i]], Nucleotide[s[i + 1]],
+                     Nucleotide[s[i + 2]])
+        gene.append(codon)  # добавить кодон в ген
     return gene
 
-my_gene: Gene = string_to_gene(gene_str)
+my_gene:
+    Gene = string_to_gene(gene_str)
+
 
 # Реализация линейного поиска
 def linear_conntains(gene: Gene, key_codon: Codon) -> bool:
@@ -29,8 +36,10 @@ def linear_conntains(gene: Gene, key_codon: Codon) -> bool:
             return True
     return False
 
-acg: Codon = (Nucleotide.A, Nucleotide.C, Nucleotide.G)
-gat: Codon = (Nucleotide.G, Nucleotide.A, Nucleotide.T)
+acg:
+    Codon = (Nucleotide.A, Nucleotide.C, Nucleotide.G)
+gat:
+    Codon = (Nucleotide.G, Nucleotide.A, Nucleotide.T)
 print(linear_conntains(my_gene, acg))
 print(linear_conntains(my_gene, gat))
 
@@ -38,12 +47,16 @@ print(linear_conntains(my_gene, gat))
 print(acg in my_gene)
 print(gat in my_gene)
 
+
 # Бинарный поиск
 def binary_contains(gene: Gene, key_codon: Codon) -> bool:
-    low: int = 0
-    high: int = len(gene) - 1
-    while low <= high: # пока ещё есть место для поиска
-        mid: int = (low + high) // 2
+    low:
+        int = 0
+    high:
+        int = len(gene) - 1
+    while low <= high:  # пока ещё есть место для поиска
+        mid:
+            int = (low + high) // 2
         if gene[mid] < key_codon:
             low = mid + 1
         elif gene[mid] > key_codon:
@@ -52,6 +65,7 @@ def binary_contains(gene: Gene, key_codon: Codon) -> bool:
             return True
     return False
 
-my_sorted_gene: Gene = sorted(my_gene)
+my_sorted_gene:
+    Gene = sorted(my_gene)
 print(binary_contains(my_sorted_gene, acg))
 print(binary_contains(my_sorted_gene, gat))
