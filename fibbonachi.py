@@ -3,7 +3,7 @@ from functools import lru_cache
 from typing import Generator
 
 
-# Жрёт кучу памяти
+# Худший метод
 def fib(n: int) -> int:
     if n < 2:
         return n
